@@ -1,0 +1,12 @@
+name = "spunt-podcast-websocket"
+main = "worker/websocket.ts"
+compatibility_date = "2024-02-15"
+
+[durable_objects]
+bindings = [
+  { name = "CONNECTIONS", class_name = "ConnectionsStore" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ConnectionsStore"]
