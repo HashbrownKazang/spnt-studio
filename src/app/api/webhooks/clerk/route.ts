@@ -36,12 +36,19 @@ async function handler(request: Request) {
   const { id } = evt.data
   const eventType = evt.type
   if (eventType === 'user.created') {
-    const { id, email_addresses, image_url, first_name, last_name } = evt.data
+    const { id, email_addresses, image_url, first_name, last_name, public_metadata } = evt.data
     const email = email_addresses[0].email_address
+    const role = public_metadata?.role || 'user'
     try {
       const { error } = await supabase
         .from('users')
-        .insert([{ id, full_name: `${first_name} ${last_name}`, avatar_url: image_url, email }])
+        .insert([{ 
+          id, 
+          full_name: `${first_name} ${last_name}`, 
+          avatar_url: image_url, 
+          email,
+          role 
+        }])
       if (error) {
         console.error('Error inserting user into Supabase:', error)
         return new Response('Error inserting user into Supabase', { status: 500 })

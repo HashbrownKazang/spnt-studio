@@ -1,39 +1,57 @@
-import { auth, currentUser } from '@clerk/nextjs/server'
-import { supabase } from '@/lib/supabase-client'
+import supabase from '@/lib/supabase-client'
 
 export default async function Page() {
-  // Get the userId from auth() -- if null, the user is not signed in
-  const { userId } = await auth()
-
-  // Protect the route by checking if the user is signed in
-  if (!userId) {
-    return <div>Sign in to view this page</div>
-  }
-
-  // Get the Backend API User object when you need access to the user's information
-  const user = await currentUser()
-
-  // Fetch user data from Supabase
-  const { data: supabaseUser, error } = await supabase
-    .from('users')
+  // Fetch episodes from Supabase
+  const { data: episodes, error } = await supabase
+    .from('episodes')
     .select('*')
-    .eq('id', userId)
-    .single()
+    .order('publication_date', { ascending: false })
 
   if (error) {
-    console.error('Error fetching user from Supabase:', error)
+    console.error('Error fetching episodes:', error)
   }
 
-  // Use `user` to render user details or create UI elements
   return (
-    <div>
-      Welcome, {user.firstName}!
-      {supabaseUser && (
-        <p>Supabase Data: {JSON.stringify(supabaseUser)}</p>
-      )}
-      {error && (
-        <p>Error: {error.message}</p>
-      )}
+    <div className="max-w-6xl mx-auto px-4 py-8">
+      {/* Brand Header */}
+      <header className="mb-12 text-center">
+        <h1 className="text-4xl font-bold mb-2">Podcast Brand</h1>
+        <p className="text-xl text-gray-600">Your favorite podcast destination</p>
+      </header>
+
+      {/* Live Show Section */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold mb-6">Live Now</h2>
+        <div className="bg-gray-100 rounded-lg p-8 text-center">
+          <p className="text-lg mb-4">No live show currently airing</p>
+          <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            Notify Me When Live
+          </button>
+        </div>
+      </section>
+
+      {/* Episode Catalog */}
+      <section>
+        <h2 className="text-2xl font-bold mb-6">Previous Episodes</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {episodes?.map((episode) => (
+            <div key={episode.id} className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+              <div className="p-4">
+                <h3 className="font-bold text-lg mb-2">{episode.title}</h3>
+                <p className="text-gray-600 mb-4 line-clamp-2">{episode.description}</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-500">
+                    {new Date(episode.publication_date).toLocaleDateString()}
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    {Math.floor(episode.duration / 60)} min
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }
