@@ -1,10 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Supabase URL and Anon Key are required. Please check your environment variables.');
-}
+const supabaseUrl: string = 'https://wgjoajkwrtzafykrlnwo.supabase.co'; // Replace with your actual URL
+const supabaseAnonKey: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'; // Replace with your actual key
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
