@@ -1,4 +1,4 @@
-import supabase from '@/lib/supabase-client'
+import supabase from '@supabase/supabase-js';
 
 export default async function Page() {
   // Fetch episodes from Supabase

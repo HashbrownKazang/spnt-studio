@@ -22,4 +22,4 @@ This is an app created so that my team and I can record our podcast, users can t
 
 ## development
 
-Started wit create-next-app, added supabase and clerk and worked out the authentication workflow. Next is the schema for the database.
+Started wit create-next-app, added supabase and clerk and worked out the authentication workflow. Next is the schema for the database. With clerk and upabase handling auth and users, I set out to have cloudflare R2 storage do the heavy lifting as far as the backend was concerned. R2 storage fr storiing and serving the audio files and durable workers for real time chat. If that all falls in place the rest shoould as well.
