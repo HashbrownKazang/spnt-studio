@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
-import supabase from '@/lib/supabase-client'
+import { supabase } from '@/lib/supabase-client'
 import { CommentForm } from '@/components/CommentForm'
 
 export default async function EpisodePage({ params }: { params: { id: string } }) {

@@ -1,5 +1,5 @@
 import { Hero } from '@/components/Hero';
-import supabase from '@/lib/supabase-client';
+import { supabase } from '@/lib/supabase-client';
 
 export default async function Page() {
   // Fetch episodes from Supabase
@@ -15,9 +15,9 @@ export default async function Page() {
   return (
     <div className="max-w-6xl mx-auto">
       <Hero 
-        title="SPNT ENTERTAINMENT"
-        subtitle="Your premier destination for podcasts and live shows"
-        imageSrc="/S P U N T E N T E R T A I N M E N T_20250308_213545_0000.png"
+        title="s p u n t e n t e r t a i n m e n t"
+        subtitle="spuntentertainment is not responsible"
+        imageSrc="/hero-image.png"
       />
 
       <div className="px-4 py-8">

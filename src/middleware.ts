@@ -1,26 +1,28 @@
-import { auth } from '@clerk/nextjs/server';
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export default async function middleware(req) {
-  if (req.nextUrl.pathname.startsWith('/studio')) {
-    const { userId, orgMemberships } = auth(req);
-    
-    if (!userId) {
-      return NextResponse.redirect(new URL('/sign-in', req.url));
+export default clerkMiddleware({
+  publicRoutes: ["/"],
+  debug: true,
+  afterAuth(auth, req, evt) {
+    // Handle users who aren't authenticated
+    if (!auth.userId && !auth.isPublicRoute) {
+      return redirectToSignIn({ returnBackUrl: req.url });
     }
-
-    const isOrgMember = orgMemberships?.some(
-      m => m.organization.id === process.env.ALLOWED_ORG_ID
-    );
-
-    if (!isOrgMember) {
-      return NextResponse.redirect(new URL('/', req.url));
+    // Redirect signed in users to organization selection page if they are not active in an organization
+    if (
+      auth.userId &&
+      !auth.orgId &&
+      req.nextUrl.pathname !== "/org-selection"
+    ) {
+      const orgSelection = new URL("/org-selection", req.url);
+      return NextResponse.redirect(orgSelection);
     }
-  }
-
-  return NextResponse.next();
-}
-
-export const config = {
-  matcher: ['/studio/:path*'],
-};
+    // If the user is signed in and trying to access a protected route, allow them to access route
+    if (auth.userId && !auth.isPublicRoute) {
+      return NextResponse.next();
+    }
+    // Allow users visiting public routes to access them
+    return NextResponse.next();
+  },
+});
