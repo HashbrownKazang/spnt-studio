@@ -40,7 +40,7 @@ export default async function EpisodePage({ params }: { params: { id: string } }
       {/* Audio Player */}
       <div className="mb-8">
         <audio 
-          src={`https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com/${process.env.CLOUDFLARE_R2_BUCKET_NAME}/${episode.audio_url}`}
+          src={`${process.env.CLOUDFLARE__R2_ENDPOINT}/${episode.audio_url}`}
           controls
           className="w-full"
         />
