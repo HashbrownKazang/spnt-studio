@@ -14,7 +14,9 @@ import {
   NavigationMenuLink,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
+import { Header } from '@/components/Header'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -39,34 +41,13 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <header className="flex justify-between items-center p-4 h-16">
-            <NavigationMenu className="gap-1">
-              <NavigationMenuItem>
-                <NavigationMenuLink href="/" className={navigationMenuTriggerStyle()}>
-                  Home
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink href="/episodes" className={navigationMenuTriggerStyle()}>
-                  Episodes
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink href="/studio" className={navigationMenuTriggerStyle()}>
-                  Studio
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenu>
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
-          {children}
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}></body>
+          <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+            <div className="min-h-screen bg-background text-foreground">
+              <Header />
+              {children}
+            </div>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
