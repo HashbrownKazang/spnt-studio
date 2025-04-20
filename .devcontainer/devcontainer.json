@@ -1,0 +1,17 @@
+{
+    "name": "spnt-studio",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:0-20",
+    "features": {
+      "ghcr.io/devcontainers/features/node:1": {
+        "version": "20"
+      }
+    },
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "ms-vscode.vscode-typescript-next"
+        ]
+      }
+    },
+    "postCreateCommand": "npm install"
+  }
