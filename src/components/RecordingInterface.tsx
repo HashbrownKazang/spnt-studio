@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react';
-import supabase from '@/lib/supabase-client';
+import { supabase } from '@/lib/supabase-client';
 
 const RecordingInterface: React.FC = () => {
   const [recording, setRecording] = useState(false);
@@ -33,7 +33,7 @@ const RecordingInterface: React.FC = () => {
         clearInterval(timerInterval.current);
       }
     };
-  }, []);
+  }, [stream]);
 
   const startRecording = () => {
     if (!stream) {

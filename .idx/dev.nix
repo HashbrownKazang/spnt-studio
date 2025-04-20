@@ -10,7 +10,7 @@
   ];
   idx.previews = {
     previews = {
-      web = {
+      default = {
         command = [
           "npm"
           "run"

@@ -7,17 +7,17 @@ const webhookSecret: string = process.env.CLERK_WEBHOOK_SECRET || ''
 
 async function handler(request: Request) {
   const payloadString = await request.text()
-  const svixHeaders = headers()
+  const svixHeaders = await headers()
   const svix_id = svixHeaders.get('svix-id')
   const svix_timestamp = svixHeaders.get('svix-timestamp')
   const svix_signature = svixHeaders.get('svix-signature')
   if (!svix_id || !svix_timestamp || !svix_signature) {
-    return new Response('Error occured -- no svix headers',
+    return new Response('Error occurred -- no svix headers',
       { status: 400 }
     )
   }
   const wh = new Webhook(webhookSecret)
-  let evt: WebhookEvent
+  let evt: WebhookEvent | null = null
   try {
     evt = wh.verify(
       payloadString,
@@ -29,11 +29,11 @@ async function handler(request: Request) {
     ) as WebhookEvent
   } catch (err) {
     console.error('Error while verifying webhook or fetching user data:', err)
-    return new Response('Error occured', {
+    return new Response('Error occurred', {
       status: 400,
     })
   }
-  const { id } = evt.data
+  // const { id } = evt.data  // eslint-disable-line @typescript-eslint/no-unused-vars
   const eventType = evt.type
   if (eventType === 'user.created') {
     const { id, email_addresses, image_url, first_name, last_name, public_metadata } = evt.data

@@ -1,8 +1,8 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import RecordingInterface from "@/components/RecordingInterface";
 
 export default async function RecordPage() {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (userId) {
     return <RecordingInterface />;

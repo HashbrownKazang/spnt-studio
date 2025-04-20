@@ -36,3 +36,12 @@ CREATE TABLE comments (
   content TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE chat_messages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  episode_id UUID REFERENCES episodes(id),
+  user_id UUID REFERENCES users(id),
+  content TEXT NOT NULL,
+  is_live BOOLEAN DEFAULT true,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

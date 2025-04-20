@@ -37,7 +37,11 @@ export default async function Page() {
           <h2 className="text-2xl font-bold mb-6">Previous Episodes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {episodes?.map((episode) => (
-              <div key={episode.id} className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+              <a
+                key={episode.id}
+                href={`/episodes/${episode.id}`}
+                className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow block"
+              >
                 <div className="p-4">
                   <h3 className="font-bold text-lg mb-2">{episode.title}</h3>
                   <p className="text-gray-600 mb-4 line-clamp-2">{episode.description}</p>
@@ -50,7 +54,7 @@ export default async function Page() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </section>

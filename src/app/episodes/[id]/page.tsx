@@ -40,7 +40,7 @@ export default async function EpisodePage({ params }: { params: { id: string } }
       {/* Audio Player */}
       <div className="mb-8">
         <audio 
-          src={`${process.env.CLOUDFLARE__R2_ENDPOINT}/${episode.audio_url}`}
+          src={`${process.env.CLOUDFLARE_R2_ENDPOINT}/${episode.audio_url}`}
           controls
           className="w-full"
         />
@@ -56,7 +56,8 @@ export default async function EpisodePage({ params }: { params: { id: string } }
             {comments.map((comment) => (
               <div key={comment.id} className="border-b pb-4">
                 <div className="flex items-center space-x-2 mb-2">
-                  <img 
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
                     src={comment.users?.avatar_url || '/default-avatar.png'} 
                     alt={comment.users?.full_name}
                     className="w-8 h-8 rounded-full"

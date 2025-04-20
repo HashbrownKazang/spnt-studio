@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import Image from 'next/image'
 import { auth } from '@clerk/nextjs/server'
 
 interface ChatMessage {
@@ -99,9 +100,11 @@ export function LiveChat({ episodeId }: { episodeId: string }) {
         {messages.length ? (
           messages.map((message) => (
             <div key={message.id} className="flex space-x-3">
-              <img 
+              <Image
                 src={message.user.avatar || '/default-avatar.png'}
                 alt={message.user.name}
+                width={32}
+                height={32}
                 className="w-8 h-8 rounded-full"
               />
               <div>

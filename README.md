@@ -1,25 +1,36 @@
- # spnt-studio
+# spnt-studio
 
-## tech-stack
+## Tech Stack
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Supabase
+- Clerk
+- Cloudflare (R2 Storage, Durable Objects, Workers)
+- Vercel
+- Resend
+- GitLab
+- GitHub
+- Firebase Studio
+- Gemini
 
-* nextjs
-* react
-* typescript
-* tailwind
-* supabase
-* clerk
-* cloudflare
-* vercel
-* resend
-* gitlab
-* github
-* firebase-studio
-* gemini
+## Purpose
+spnt-studio is a dedicated platform designed for recording and broadcasting the podcast "TH3H1T5H0W" by the spuntentertainment team. The platform allows users to listen to live broadcasts, browse a catalog of previously recorded episodes, and engage through comments and live chat. The project aims to maintain complete control over content and infrastructure, avoiding external corporate oversight.
 
-## purpose
+## Features Implemented
+- User authentication and management via Clerk and Supabase
+- Audio recording interface with direct uploads to Cloudflare R2 storage
+- Episode catalog with individual episode pages
+- Comment system for user interaction on episodes
+- Basic live chat infrastructure
 
-This is an app created so that my team and I can record our podcast, users can then listen live, or browse the catalog and listen to previously recorder episodes. This is not intended to be multi-tenant at this time. I just wanted a way to record or podcast, and kee everything possible in house. The brand spuntentertainment and the podcast TH3H1T5H0W (the shit show) are not for everyone and that is okay, but th last thing we need is corporate oversight. spuntentertainment is not resposible
+## Upcoming Features
+- Real-time live show system using Cloudflare Durable Objects and Workers
+- Admin dashboard for episode and broadcast management
+- User role management and permissions
+- Enhanced live chat integration with broadcast scheduling and controls
+- Infrastructure improvements including message archiving and proper CORS configuration
 
-## development
-
-Started wit create-next-app, added supabase and clerk and worked out the authentication workflow. Next is the schema for the database. With clerk and upabase handling auth and users, I set out to have cloudflare R2 storage do the heavy lifting as far as the backend was concerned. R2 storage fr storiing and serving the audio files and durable workers for real time chat. If that all falls in place the rest shoould as well.
+## Development Notes
+The project began with create-next-app, integrating Supabase and Clerk for authentication. Cloudflare R2 storage handles audio file storage and serving, while Cloudflare Durable Objects and Workers are planned for real-time chat functionality. The database schema and backend infrastructure are designed to support scalability and ease of management.
