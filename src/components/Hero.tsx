@@ -1,20 +1,17 @@
 import React from 'react';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
 
 interface HeroProps {
   title: string;
   subtitle: string;
   imageSrc: string;
-  ctaText?: string;
-  onCtaClick?: () => void;
 }
 
 export function Hero({
   title,
   subtitle,
-  imageSrc,
-  ctaText,
-  onCtaClick
+  imageSrc
 }: HeroProps) {
   return (
     <div className="relative w-full h-[500px]">
@@ -38,14 +35,13 @@ export function Hero({
         <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl">
           {subtitle}
         </p>
-        {ctaText && (
-          <button
-            onClick={onCtaClick}
-            className="px-8 py-3 bg-white text-black rounded-lg font-medium hover:bg-white/90 transition-colors"
-          >
-            {ctaText}
-          </button>
-        )}
+        <Button 
+          variant="default" 
+          size="lg"
+          onClick={() => window.location.href = '/episodes/latest'}
+        >
+          Listen now
+        </Button>
       </div>
     </div>
   );

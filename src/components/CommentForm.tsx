@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase-client'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
 
 export function CommentForm({ episodeId }: { episodeId: string }) {
   const [content, setContent] = useState('')
@@ -39,23 +41,22 @@ export function CommentForm({ episodeId }: { episodeId: string }) {
   return (
     <form onSubmit={handleSubmit} className="mb-8">
       <div className="mb-4">
-        <textarea
+        <Textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Add your comment..."
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           rows={3}
           disabled={isSubmitting}
         />
       </div>
       {error && <p className="text-red-500 mb-2">{error}</p>}
-      <button
+      <Button
         type="submit"
+        variant="default"
         disabled={isSubmitting || !content.trim()}
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
       >
         {isSubmitting ? 'Posting...' : 'Post Comment'}
-      </button>
+      </Button>
     </form>
   )
 }

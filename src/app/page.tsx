@@ -1,5 +1,7 @@
 import { Hero } from '@/components/Hero';
 import { supabase } from '@/lib/supabase-client';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 
 export default async function Page() {
   // Fetch episodes from Supabase
@@ -26,9 +28,9 @@ export default async function Page() {
           <h2 className="text-2xl font-bold mb-6">Live Now</h2>
           <div className="bg-gray-100 rounded-lg p-8 text-center">
             <p className="text-lg mb-4">No live show currently airing</p>
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-              Notify Me When Live
-            </button>
+            <Button variant="default" size="lg">
+              Listen Now
+            </Button>
           </div>
         </section>
 
@@ -37,24 +39,25 @@ export default async function Page() {
           <h2 className="text-2xl font-bold mb-6">Previous Episodes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {episodes?.map((episode) => (
-              <a
+              <Card
                 key={episode.id}
-                href={`/episodes/${episode.id}`}
-                className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow block"
+                className="hover:shadow-lg transition-shadow cursor-pointer"
               >
-                <div className="p-4">
-                  <h3 className="font-bold text-lg mb-2">{episode.title}</h3>
-                  <p className="text-gray-600 mb-4 line-clamp-2">{episode.description}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-500">
-                      {new Date(episode.publication_date).toLocaleDateString()}
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      {Math.floor(episode.duration / 60)} min
-                    </span>
+                <a href={`/episodes/${episode.id}`} className="block">
+                  <div className="p-4">
+                    <h3 className="font-bold text-lg mb-2">{episode.title}</h3>
+                    <p className="text-gray-600 mb-4 line-clamp-2">{episode.description}</p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-500">
+                        {new Date(episode.publication_date).toLocaleDateString()}
+                      </span>
+                      <span className="text-sm text-gray-500">
+                        {Math.floor(episode.duration / 60)} min
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </Card>
             ))}
           </div>
         </section>

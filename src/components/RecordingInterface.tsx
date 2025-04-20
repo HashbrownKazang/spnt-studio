@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { supabase } from '@/lib/supabase-client';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 
 const RecordingInterface: React.FC = () => {
   const [recording, setRecording] = useState(false);
@@ -187,14 +189,12 @@ const RecordingInterface: React.FC = () => {
         </div>
       )}
 
-      <button
+      <Button
+        variant={recording ? "destructive" : "default"}
         onClick={recording ? stopRecording : startRecording}
-        className={`px-4 py-2 rounded font-medium ${
-          recording ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
-        } text-white`}
       >
         {recording ? 'Stop Recording' : 'Start Recording'}
-      </button>
+      </Button>
 
       {recording && (
         <div className="flex items-center space-x-2">
@@ -209,19 +209,19 @@ const RecordingInterface: React.FC = () => {
         <div className="space-y-4">
           <audio controls src={URL.createObjectURL(audioBlob)} className="w-full" />
           <div className="flex space-x-2">
-            <button
+            <Button 
+              variant="default"
               onClick={saveRecording}
               disabled={isUploading}
-              className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded disabled:bg-gray-400"
             >
               {isUploading ? 'Uploading...' : 'Save Episode'}
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="outline"
               onClick={discardRecording}
-              className="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded"
             >
               Discard
-            </button>
+            </Button>
           </div>
         </div>
       )}

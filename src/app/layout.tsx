@@ -8,6 +8,12 @@ import {
   UserButton,
 } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  navigationMenuTriggerStyle,
+} from '@/components/ui/navigation-menu'
 import './globals.css'
 
 const geistSans = Geist({
@@ -34,7 +40,24 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <header className="flex justify-end items-center p-4 gap-4 h-16">
+          <header className="flex justify-between items-center p-4 h-16">
+            <NavigationMenu className="gap-1">
+              <NavigationMenuItem>
+                <NavigationMenuLink href="/" className={navigationMenuTriggerStyle()}>
+                  Home
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink href="/episodes" className={navigationMenuTriggerStyle()}>
+                  Episodes
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink href="/studio" className={navigationMenuTriggerStyle()}>
+                  Studio
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenu>
             <SignedOut>
               <SignInButton />
               <SignUpButton />
